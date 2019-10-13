@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4996952504038051756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.054, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6969669986076396073}
@@ -181,3 +181,5 @@ MonoBehaviour:
   player_Torpedo: {fileID: 374707612521506973, guid: 6022e40a556993f4f86bebd2d2ac4df8,
     type: 3}
   attack_Point: {fileID: 4400202395651693556}
+  attack_Timer: 0.2
+  torpedo_turn_rate: 0.01
