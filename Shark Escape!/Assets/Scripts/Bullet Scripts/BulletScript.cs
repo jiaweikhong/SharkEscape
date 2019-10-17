@@ -5,37 +5,43 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float speed = 5f;
-    public float deactivate_Timer = 3f;
-
-    private float torpedo_X;    // decided by PlayerController.cs
-    private float torpedo_Y;
+    public float bulletSpeed = 1;
+    public float deactivate_Timer = 10f;
+    public float bullet_X;    // decided by PlayerController.cs
+    public float bullet_Y;
+    public float damage;
+    public int torp_level;
+    public int laser_level;
 
     // Start is called before the first frame update
     void Start()
-    {
-        torpedo_X = PlayerController.torpedo_X;
-        torpedo_Y = PlayerController.torpedo_Y;
-        SetAngle(torpedo_X, torpedo_Y);     // set the angle of the torpedo flying
-        Invoke("DeactivateGameObject", deactivate_Timer);   // torpedo disappears after deactivate_Timer is up
-    }
+    {}
 
     // Update is called once per frame
     void Update()
+    {}
+
+    public void InstantiateBullet()
     {
-        Move();   
+        bullet_X = PlayerController.bullet_X;
+        bullet_Y = PlayerController.bullet_Y;
+        torp_level = PlayerController.torpedo_level;
+        laser_level = PlayerController.laser_level;
+        SetAngle(bullet_X, bullet_Y);     // set the angle of the torpedo flying
+        Invoke("DestroyGameObject", deactivate_Timer);   // torpedo disappears after deactivate_Timer is up
     }
 
-    void Move()
+    public void Move()
     {
         Vector3 temp = transform.position;
-        temp.x += speed * Time.deltaTime * torpedo_X;
-        temp.y += speed * Time.deltaTime * torpedo_Y;
+        temp.x += bulletSpeed * Time.deltaTime * bullet_X;
+        temp.y += bulletSpeed * Time.deltaTime * bullet_Y;
         transform.position = temp;
     }   // move
 
-    void DeactivateGameObject() {
+    void DestroyGameObject() {
         gameObject.SetActive(false);
+        Destroy(gameObject);
     }   // deactivate
 
     void SetAngle(float x, float y) {

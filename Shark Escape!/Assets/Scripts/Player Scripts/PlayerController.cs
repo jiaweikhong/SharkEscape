@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;    // f for float
+    public float charSpeed = 5f;    // f for float
     public float min_Y, max_Y, min_X, max_X;
 
     [SerializeField]
     private GameObject player_Torpedo;
+
+    [SerializeField]
+    private GameObject player_Laser;
 
     [SerializeField]
     private Transform attack_Point;
@@ -17,14 +20,27 @@ public class PlayerController : MonoBehaviour
     private float current_Attack_Timer;
     private bool canAttack;
 
-    public static float torpedo_X = 0f;
-    public static float torpedo_Y = 1f;
+    public static float bullet_X = 0f;
+    public static float bullet_Y = 1f;
     public float torpedo_turn_rate;
+
+    public static int torpedo_level = 1;
+    public static int laser_level = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         current_Attack_Timer = attack_Timer;
+        //Invoke("TorpedoLevelUp", 2f);
+        //Invoke("TorpedoLevelUp", 4f);
+        //Invoke("TorpedoLevelUp", 6f);
+        //Invoke("TorpedoLevelUp", 8f);
+        //Invoke("TorpedoLevelUp", 10f);
+        //Invoke("LaserLevelUp", 2f);
+        //Invoke("LaserLevelUp", 4f);
+        //Invoke("LaserLevelUp", 6f);
+        //Invoke("LaserLevelUp", 8f);
+        //Invoke("LaserLevelUp", 10f);
     }
 
     // Update is called once per frame
@@ -40,7 +56,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") > 0f)
         {
             Vector3 temp = transform.position;
-            temp.y += speed * Time.deltaTime;
+            temp.y += charSpeed * Time.deltaTime;
             if (temp.y > max_Y)
             {
                 temp.y = max_Y;
@@ -50,7 +66,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetAxisRaw("Vertical") < 0f)
         {
             Vector3 temp = transform.position;
-            temp.y -= speed * Time.deltaTime;
+            temp.y -= charSpeed * Time.deltaTime;
             if (temp.y < min_Y)
             {
                 temp.y = min_Y;
@@ -60,7 +76,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetAxisRaw("Horizontal") > 0f)
         {
             Vector3 temp = transform.position;
-            temp.x += speed * Time.deltaTime;
+            temp.x += charSpeed * Time.deltaTime;
             if (temp.x > max_X)
             {
                 temp.x = max_X;
@@ -70,7 +86,7 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetAxisRaw("Horizontal") < 0f)
         {
             Vector3 temp = transform.position;
-            temp.x -= speed * Time.deltaTime;
+            temp.x -= charSpeed * Time.deltaTime;
             if (temp.x < min_X)
             {
                 temp.x = min_X;
@@ -95,45 +111,65 @@ public class PlayerController : MonoBehaviour
                 // play the sound FX
             }
         }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            if (canAttack)
+            {
+                canAttack = false;
+                attack_Timer = 0f;
+                Instantiate(player_Laser, attack_Point.position, Quaternion.identity);
+                // play the sound FX
+            }
+        }
     }   // attack
 
     void MoveTorpedoAngle() {
         if (Input.GetKey(KeyCode.A)) {
-            if (torpedo_X >= 0 & torpedo_Y >= 0) {
-                torpedo_X -= torpedo_turn_rate;
-                torpedo_Y += torpedo_turn_rate;
+            if (bullet_X >= 0 & bullet_Y >= 0) {
+                bullet_X -= torpedo_turn_rate;
+                bullet_Y += torpedo_turn_rate;
             }
-            else if (torpedo_X <= 0 & torpedo_Y >= 0) {
-                torpedo_X -= torpedo_turn_rate;
-                torpedo_Y -= torpedo_turn_rate;
+            else if (bullet_X <= 0 & bullet_Y >= 0) {
+                bullet_X -= torpedo_turn_rate;
+                bullet_Y -= torpedo_turn_rate;
             }
-            else if (torpedo_X <= 0 & torpedo_Y <= 0) {
-                torpedo_X += torpedo_turn_rate;
-                torpedo_Y -= torpedo_turn_rate;
+            else if (bullet_X <= 0 & bullet_Y <= 0) {
+                bullet_X += torpedo_turn_rate;
+                bullet_Y -= torpedo_turn_rate;
             }
-            else if (torpedo_X >= 0 & torpedo_Y <= 0) {
-                torpedo_X += torpedo_turn_rate;
-                torpedo_Y += torpedo_turn_rate;
+            else if (bullet_X >= 0 & bullet_Y <= 0) {
+                bullet_X += torpedo_turn_rate;
+                bullet_Y += torpedo_turn_rate;
             }
         }
         else if (Input.GetKey(KeyCode.D)) {
-            if (torpedo_X >= 0 & torpedo_Y >= 0) {
-                torpedo_X += torpedo_turn_rate;
-                torpedo_Y -= torpedo_turn_rate;
+            if (bullet_X >= 0 & bullet_Y >= 0) {
+                bullet_X += torpedo_turn_rate;
+                bullet_Y -= torpedo_turn_rate;
             }
-            else if (torpedo_X <= 0 & torpedo_Y >= 0) {
-                torpedo_X += torpedo_turn_rate;
-                torpedo_Y += torpedo_turn_rate;
+            else if (bullet_X <= 0 & bullet_Y >= 0) {
+                bullet_X += torpedo_turn_rate;
+                bullet_Y += torpedo_turn_rate;
             }
-            else if (torpedo_X <= 0 & torpedo_Y <= 0) {
-                torpedo_X -= torpedo_turn_rate;
-                torpedo_Y += torpedo_turn_rate;
+            else if (bullet_X <= 0 & bullet_Y <= 0) {
+                bullet_X -= torpedo_turn_rate;
+                bullet_Y += torpedo_turn_rate;
             }
-            else if (torpedo_X >= 0 & torpedo_Y <= 0) {
-                torpedo_X -= torpedo_turn_rate;
-                torpedo_Y -= torpedo_turn_rate;
+            else if (bullet_X >= 0 & bullet_Y <= 0) {
+                bullet_X -= torpedo_turn_rate;
+                bullet_Y -= torpedo_turn_rate;
             }
         }
     }   // move torpedo angle
+
+    void TorpedoLevelUp()
+    {
+        torpedo_level += 1;
+    }
+
+    void LaserLevelUp()
+    {
+        laser_level += 1;
+    }
 
 }   // class
