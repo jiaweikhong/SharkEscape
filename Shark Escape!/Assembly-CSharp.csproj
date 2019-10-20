@@ -66,9 +66,9 @@
     <Compile Include="Assets\Scripts\Bullet Scripts\BulletScript.cs" />
     <Compile Include="Assets\Scripts\Bullet Scripts\LaserScript.cs" />
     <Compile Include="Assets\Scripts\Bullet Scripts\TorpedoScript.cs" />
+    <Compile Include="Assets\Scripts\Camera Scripts\CameraScroll.cs" />
     <Compile Include="Assets\Scripts\Enemy Scripts\EnemyScript.cs" />
     <Compile Include="Assets\Scripts\Enemy Scripts\EnemySpawnerScript.cs" />
-    <Compile Include="Assets\Scripts\Map Scripts\BGScroll.cs" />
     <Compile Include="Assets\Scripts\Player Scripts\PlayerController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/khong/Documents/GitHub/SharkEscape/Shark Escape!/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
