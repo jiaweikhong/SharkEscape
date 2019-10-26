@@ -20,6 +20,7 @@ public class CameraScroll : MonoBehaviour
     void Scroll()
     {
         y_Scroll = Time.time * scroll_speed;
+        y_Scroll = scroll_speed;
         //Might have to edit this in the later part to smoothen scrolling of camera
         transform.position = new Vector3(transform.position.x, transform.position.y + y_Scroll, transform.position.z);
 
