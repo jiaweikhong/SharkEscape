@@ -8,8 +8,8 @@ public class EnemyScript : MonoBehaviour
 
 	private bool dirRight = true;
 
-    private Vector3 leftBound = new Vector3(-4,0,0);
-    private Vector3 rightBound = new Vector3(4, 0, 0);
+    private Vector3 leftBound;
+    private Vector3 rightBound;
     public float health = 10;
 
 	public GameObject enemyPrefab;
@@ -23,7 +23,8 @@ public class EnemyScript : MonoBehaviour
     }
 
     void Start(){
-
+        leftBound = new Vector3(-4 + transform.position.x, transform.position.y, transform.position.z);
+        rightBound = new Vector3(4 + transform.position.x, transform.position.y, transform.position.z);
     }
     // Update is called once per frame
     void Update(){
@@ -31,6 +32,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     void Move(){
+
         transform.position = Vector3.Lerp(leftBound,rightBound, (Mathf.Sin(speed * Time.time) + 1.0f)/2.0f);
     }
 
