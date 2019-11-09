@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float charSpeed = 5f;    // f for float
-    public float min_Y = -4.58f;
+    public float min_Y = -9.37f;
     public float max_Y = 320f;
-    public float min_X = -12.51f;
-    public float max_X = 12.51f;
+    public float min_X = -17.35f;
+    public float max_X = 10.52f;
     public int health = 100;
     public float current_Invin_Timer;
     public float invin_Time = 1.5f;
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        KeepSubInView();
         MoveSubmarine();
         MoveTorpedoAngle();
         Attack();
@@ -213,7 +214,15 @@ public class PlayerController : MonoBehaviour
         if (current_Invin_Timer > invin_Time)
         {
             canBeDamaged = true;
-        }   // ensures i-frame after being hit
+        }
+    }   // ensures i-frame after being hit
+
+    private void KeepSubInView()
+    {
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        pos.x = Mathf.Clamp01(pos.x);
+        pos.y = Mathf.Clamp(pos.y, 0.038f, 1f);
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
 }   // class
