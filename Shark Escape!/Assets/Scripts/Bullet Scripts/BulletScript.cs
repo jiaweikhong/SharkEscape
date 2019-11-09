@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float bulletSpeed = 1;
+    public float bulletSpeed = 1.5f;
     public float deactivate_Timer = 10f;
     public float bullet_X;    // decided by PlayerController.cs
     public float bullet_Y;
@@ -62,6 +62,15 @@ public class BulletScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, val);
         }
     }   // set angle
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            DestroyGameObject();
+        }
+    }   // destroy bullet when collide
+
 }
 
 

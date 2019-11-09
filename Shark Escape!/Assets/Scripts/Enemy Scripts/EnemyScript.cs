@@ -10,7 +10,7 @@ public class EnemyScript : MonoBehaviour
 
     private Vector3 leftBound;
     private Vector3 rightBound;
-    public float health = 10;
+    public float health = 30;
 
 	public GameObject enemyPrefab;
 
@@ -32,7 +32,6 @@ public class EnemyScript : MonoBehaviour
     }
 
     void Move(){
-
         transform.position = Vector3.Lerp(leftBound,rightBound, (Mathf.Sin(speed * Time.time) + 1.0f)/2.0f);
     }
 
@@ -40,18 +39,24 @@ public class EnemyScript : MonoBehaviour
     {
         if (health <= 0)
         {
-            Destroy(enemyPrefab);
-            Destroy(this);
+            Destroy(gameObject);
         }
-    }
-
-    // when the GameObjects collider arrange for this GameObject to be destroyed
+    }   // check current health. if <0, destroy
     
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    Debug.Log(collision.gameObject.name + " : " + gameObject.name + " : " + Time.time);
-        //Need to add the interaction with the bullet. If Debug.Log prints out the name for Enemy and Bullet, then next step is to activate destroy. Then the checkhealth not needed.
-
-    //}
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "LaserBullet")
+        {
+            var damagetaken = collision.gameObject.GetComponent<LaserScript>().damage;
+            health -= damagetaken;
+            checkHealth();
+        }
+        else if (collision.tag == "TorpBullet")
+        {
+            var damagetaken = collision.gameObject.GetComponent<TorpedoScript>().damage;
+            health -= damagetaken;
+            checkHealth();
+        }
+    }   // apply collision logic with bullet
 
 }

@@ -27,29 +27,29 @@ public class LaserScript : BulletScript
         {
             case 1:
                 damage = 7.1f;
-                bulletSpeed = 7f;
+                bulletSpeed = 14f;
                 break;
             case 2:
                 damage = 14.2f;
-                bulletSpeed = 7f;
+                bulletSpeed = 14f;
                 break;
             case 3:
                 damage = 14.5f;
-                bulletSpeed = 11f;
+                bulletSpeed = 22f;
                 // upgrade bullet behaviour
                 break;
             case 4:
                 damage = 21.8f;
-                bulletSpeed = 11f;
+                bulletSpeed = 22f;
                 break;
             case 5:
                 damage = 21.8f;
-                bulletSpeed = 14f;
+                bulletSpeed = 28f;
                 // upgrade bullet behaviour
                 break;
             case 6:
                 damage = 22.5f;
-                bulletSpeed = 16f;
+                bulletSpeed = 32f;
                 // introduce ulti weapon
                 break;
         }

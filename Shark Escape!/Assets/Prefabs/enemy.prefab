@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 3752283341095962228}
   - component: {fileID: 3752283341095962227}
-  - component: {fileID: 3752283341095962226}
+  - component: {fileID: 9119783328917389167}
+  - component: {fileID: 7642953621384791691}
   - component: {fileID: 3752283341095962229}
   - component: {fileID: 4175960368262853952}
   m_Layer: 0
   m_Name: enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,8 +84,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3752283341095962226
-BoxCollider2D:
+--- !u!70 &9119783328917389167
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -96,19 +97,25 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.051666796, y: -0.0014836788}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.25, y: 2.25}
-    newSize: {x: 2.25, y: 2.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0.035659134, y: 0.1}
+  m_Size: {x: 1.04, y: 1.8759708}
+  m_Direction: 0
+--- !u!58 &7642953621384791691
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3752283341095962225}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03, y: 0.27}
   serializedVersion: 2
-  m_Size: {x: 1.7305554, y: 2.1742463}
-  m_EdgeRadius: 0
+  m_Radius: 0.74
 --- !u!50 &3752283341095962229
 Rigidbody2D:
   serializedVersion: 4
@@ -142,7 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80f79f74ef700e4f8f46f3625198699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotate_Speed: 50
-  bound_Y: -11
-  enemyPrefab: {fileID: 3752283341095962225}
+  speed: 1
+  health: 30
+  enemyPrefab: {fileID: 0}

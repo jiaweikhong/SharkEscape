@@ -27,29 +27,29 @@ public class TorpedoScript : BulletScript
         {
             case 1:
                 damage = 10f;
-                bulletSpeed = 5f;
+                bulletSpeed = 10f;
                 break;
             case 2:
                 damage = 20f;
-                bulletSpeed = 5f;
+                bulletSpeed = 10f;
                 break;
             case 3:
                 damage = 20f;
-                bulletSpeed = 8f;
+                bulletSpeed = 16f;
                 // upgrade bullet behaviour
                 break;
             case 4:
                 damage = 30f;
-                bulletSpeed = 8f;
+                bulletSpeed = 16f;
                 break;
             case 5:
                 damage = 30f;
-                bulletSpeed = 10f;
+                bulletSpeed = 20f;
                 // upgrade bullet behaviour
                 break;
             case 6:
                 damage = 30f;
-                bulletSpeed = 12f;
+                bulletSpeed = 24f;
                 // introduce ulti weapon
                 break;
         }

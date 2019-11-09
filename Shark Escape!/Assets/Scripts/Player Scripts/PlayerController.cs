@@ -5,7 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float charSpeed = 5f;    // f for float
-    public float min_Y, max_Y, min_X, max_X;
+    public float min_Y = -4.58f;
+    public float max_Y = 320f;
+    public float min_X = -12.51f;
+    public float max_X = 12.51f;
+    public float health = 30f;
 
     [SerializeField]
     private GameObject player_Torpedo;
@@ -22,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public static float bullet_X = 0f;
     public static float bullet_Y = 1f;
-    public float torpedo_turn_rate;
+    public float torpedo_turn_rate = 0.01f;
 
     public static int torpedo_level = 1;
     public static int laser_level = 1;
@@ -171,5 +175,32 @@ public class PlayerController : MonoBehaviour
     {
         laser_level += 1;
     }
+    void checkHealth()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            Debug.Log("you died");
+        }
+    }   // check current health. if <0, destroy
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Laser_powerup")
+        {
+            LaserLevelUp();
+            Debug.Log("Obtained Laser powerup!");
+        }
+        else if (collision.tag == "Torp_powerup")
+        {
+            TorpedoLevelUp();
+            Debug.Log("Obtained Torpedo powerup!");
+        }
+        else if (collision.tag == "Enemy")
+        {
+            health -= 10;
+            checkHealth();
+        }
+    }   // if sub touches enemy, receive 10 damage
 
 }   // class
