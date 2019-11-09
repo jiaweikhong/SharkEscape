@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
 	public float speed = 1.0f;
-
 	private bool dirRight = true;
 
     private Vector3 leftBound;
     private Vector3 rightBound;
     public float health = 30;
+    public int points = 100;
 
 	public GameObject enemyPrefab;
 
@@ -39,6 +40,8 @@ public class EnemyScript : MonoBehaviour
     {
         if (health <= 0)
         {
+            ScoreManager.score += points;
+            // Debug.Log(ScoreManager.score);
             Destroy(gameObject);
         }
     }   // check current health. if <0, destroy

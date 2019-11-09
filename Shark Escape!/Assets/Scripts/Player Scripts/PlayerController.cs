@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float charSpeed = 5f;    // f for float
@@ -9,7 +9,10 @@ public class PlayerController : MonoBehaviour
     public float max_Y = 320f;
     public float min_X = -12.51f;
     public float max_X = 12.51f;
-    public float health = 30f;
+    public int health = 100;
+    public float current_Invin_Timer;
+    public float invin_Time = 1.5f;
+    public bool canBeDamaged;
 
     [SerializeField]
     private GameObject player_Torpedo;
@@ -35,16 +38,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         current_Attack_Timer = attack_Timer;
-        //Invoke("TorpedoLevelUp", 2f);
-        //Invoke("TorpedoLevelUp", 4f);
-        //Invoke("TorpedoLevelUp", 6f);
-        //Invoke("TorpedoLevelUp", 8f);
-        //Invoke("TorpedoLevelUp", 10f);
-        //Invoke("LaserLevelUp", 2f);
-        //Invoke("LaserLevelUp", 4f);
-        //Invoke("LaserLevelUp", 6f);
-        //Invoke("LaserLevelUp", 8f);
-        //Invoke("LaserLevelUp", 10f);
     }
 
     // Update is called once per frame
@@ -53,6 +46,7 @@ public class PlayerController : MonoBehaviour
         MoveSubmarine();
         MoveTorpedoAngle();
         Attack();
+        HandleInvincibility();
     }
 
     void MoveSubmarine()
@@ -169,18 +163,21 @@ public class PlayerController : MonoBehaviour
     void TorpedoLevelUp()
     {
         torpedo_level += 1;
+        TorpLvManager.torpLevel += 1;
     }
 
     void LaserLevelUp()
     {
         laser_level += 1;
+        LaserLvManager.laserLevel += 1;
     }
     void checkHealth()
     {
         if (health <= 0)
         {
             Destroy(gameObject);
-            Debug.Log("you died");
+            // Debug.Log("you died");
+            SceneManager.LoadScene(2);
         }
     }   // check current health. if <0, destroy
 
@@ -198,9 +195,25 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.tag == "Enemy")
         {
-            health -= 10;
-            checkHealth();
+            if (canBeDamaged)
+            {
+                canBeDamaged = false;
+                current_Invin_Timer = 0f;
+                var damageTaken = 10;
+                health -= damageTaken;
+                checkHealth();
+                HealthManager.health -= damageTaken;
+            }
         }
     }   // if sub touches enemy, receive 10 damage
+
+    private void HandleInvincibility()
+    {
+        current_Invin_Timer += Time.deltaTime;
+        if (current_Invin_Timer > invin_Time)
+        {
+            canBeDamaged = true;
+        }   // ensures i-frame after being hit
+    }
 
 }   // class

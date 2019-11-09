@@ -129,7 +129,7 @@ MonoBehaviour:
   max_Y: 320
   min_X: -12.51
   max_X: 12.51
-  health: 30
+  health: 100
   player_Torpedo: {fileID: 374707612521506973, guid: 6022e40a556993f4f86bebd2d2ac4df8,
     type: 3}
   player_Laser: {fileID: 6874806664953582228, guid: fc9ab04634c11ba498033c5aaf48202d,
