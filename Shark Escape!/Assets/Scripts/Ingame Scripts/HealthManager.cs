@@ -12,7 +12,7 @@ public class HealthManager : MonoBehaviour
     void Awake()
     {
         text = GetComponent<TextMeshProUGUI>();
-        health = 100;
+        health = StatDatabase.player_max_health;
     }
 
     // Update is called once per frame

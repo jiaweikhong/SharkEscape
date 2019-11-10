@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
-    public float charSpeed = 5f;    // f for float
+    public float charSpeed = StatDatabase.player_speed;
     public float min_Y = -9.37f;
     public float max_Y = 320f;
     public float min_X = -17.35f;
     public float max_X = 10.52f;
-    public int health = 100;
+    public int health = StatDatabase.player_max_health;
     public float current_Invin_Timer;
-    public float invin_Time = 1.5f;
+    public float invin_Time = StatDatabase.player_invin_frame;
     public bool canBeDamaged;
 
     [SerializeField]
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform attack_Point;
 
-    public float attack_Timer = 0.35f;
+    public float attack_Timer = StatDatabase.player_attack_speed;
     private float current_Attack_Timer;
     private bool canAttack;
 
@@ -163,14 +163,20 @@ public class PlayerController : MonoBehaviour
 
     void TorpedoLevelUp()
     {
-        torpedo_level += 1;
-        TorpLvManager.torpLevel += 1;
+        if (torpedo_level < 6)
+        {
+            torpedo_level += 1;
+            TorpLvManager.torpLevel += 1;
+        }
     }
 
     void LaserLevelUp()
     {
-        laser_level += 1;
-        LaserLvManager.laserLevel += 1;
+        if (laser_level < 6)
+        {
+            laser_level += 1;
+            LaserLvManager.laserLevel += 1;
+        }
     }
     void checkHealth()
     {
@@ -200,7 +206,7 @@ public class PlayerController : MonoBehaviour
             {
                 canBeDamaged = false;
                 current_Invin_Timer = 0f;
-                var damageTaken = 10;
+                var damageTaken = collision.gameObject.GetComponent<EnemyScript>().touchdamage;
                 health -= damageTaken;
                 checkHealth();
                 HealthManager.health -= damageTaken;

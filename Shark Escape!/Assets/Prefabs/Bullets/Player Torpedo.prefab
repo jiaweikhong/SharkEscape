@@ -150,3 +150,13 @@ MonoBehaviour:
   damage: 0
   torp_level: 0
   laser_level: 0
+  L2_sprite: {fileID: 3221046606929183262, guid: 66d9d3dbb5daa2547b27a2cf6cdccbb6,
+    type: 3}
+  L3_sprite: {fileID: -3708074645100094667, guid: 66d9d3dbb5daa2547b27a2cf6cdccbb6,
+    type: 3}
+  L4_sprite: {fileID: 6809698112737714254, guid: 66d9d3dbb5daa2547b27a2cf6cdccbb6,
+    type: 3}
+  L5_sprite: {fileID: 6523675839282231479, guid: 66d9d3dbb5daa2547b27a2cf6cdccbb6,
+    type: 3}
+  L6_sprite: {fileID: -5887574851830874244, guid: 66d9d3dbb5daa2547b27a2cf6cdccbb6,
+    type: 3}

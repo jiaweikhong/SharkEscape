@@ -32,24 +32,29 @@ public class TorpedoScript : BulletScript
             case 2:
                 damage = 20f;
                 bulletSpeed = 10f;
+                this.GetComponent<SpriteRenderer>().sprite = L2_sprite;
                 break;
             case 3:
                 damage = 20f;
                 bulletSpeed = 16f;
+                this.GetComponent<SpriteRenderer>().sprite = L3_sprite;
                 // upgrade bullet behaviour
                 break;
             case 4:
                 damage = 30f;
                 bulletSpeed = 16f;
+                this.GetComponent<SpriteRenderer>().sprite = L4_sprite;
                 break;
             case 5:
                 damage = 30f;
                 bulletSpeed = 20f;
+                this.GetComponent<SpriteRenderer>().sprite = L5_sprite;
                 // upgrade bullet behaviour
                 break;
             case 6:
                 damage = 30f;
                 bulletSpeed = 24f;
+                this.GetComponent<SpriteRenderer>().sprite = L6_sprite;
                 // introduce ulti weapon
                 break;
         }

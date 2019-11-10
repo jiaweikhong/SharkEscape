@@ -13,6 +13,12 @@ public class BulletScript : MonoBehaviour
     public int torp_level;
     public int laser_level;
 
+    public Sprite L2_sprite;
+    public Sprite L3_sprite;
+    public Sprite L4_sprite;
+    public Sprite L5_sprite;
+    public Sprite L6_sprite;
+
     // Start is called before the first frame update
     void Start()
     {}
@@ -50,7 +56,7 @@ public class BulletScript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, val);   // set rotation
         }
         else if (x <= 0 & y >= 0) {
-            float val = 270 + 90 * -y;
+            float val = 90 + 90 * -y;
             transform.rotation = Quaternion.Euler(0, 0, val);
         }
         else if (x <= 0 & y <= 0) {
@@ -65,7 +71,7 @@ public class BulletScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy" || collision.tag == "Frame")
         {
             DestroyGameObject();
         }

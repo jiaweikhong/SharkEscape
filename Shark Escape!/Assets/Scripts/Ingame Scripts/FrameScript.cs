@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInfo : MonoBehaviour
+public class FrameScript : MonoBehaviour
 {
-    public float scroll_speed = StatDatabase.player_info_scrollspeed;
+    public float scroll_speed = StatDatabase.map_scrollspeed;
     private float y_Scroll;
 
     // Update is called once per frame
@@ -16,5 +16,5 @@ public class PlayerInfo : MonoBehaviour
     {
         y_Scroll = scroll_speed;
         transform.position = new Vector3(transform.position.x, transform.position.y + y_Scroll, transform.position.z);
-    }   // for scrolling the blue bar together with the camera.
+    }
 }

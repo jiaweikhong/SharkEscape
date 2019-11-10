@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
-	public float speed = 1.0f;
-	private bool dirRight = true;
+    public float health = StatDatabase.enemy1_health;
+    public int points = StatDatabase.enemy1_points;
+    public int touchdamage = StatDatabase.enemy1_touchdamage;
+    public float speed = StatDatabase.enemy1_speed;
 
+    private bool dirRight = true;
     private Vector3 leftBound;
     private Vector3 rightBound;
-    public float health = 30;
-    public int points = 100;
 
-	public GameObject enemyPrefab;
+    public GameObject enemyPrefab;
 
 	//Free to add sounds and animations later here
 

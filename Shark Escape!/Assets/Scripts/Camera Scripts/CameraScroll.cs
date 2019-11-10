@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraScroll : MonoBehaviour
 {
-    public float scroll_speed = 0.01f;
+    public float scroll_speed = StatDatabase.map_scrollspeed;
     private float y_Scroll;
     // Start is called before the first frame update
     void Start()
