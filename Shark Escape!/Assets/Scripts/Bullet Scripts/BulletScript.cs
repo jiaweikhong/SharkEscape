@@ -18,6 +18,7 @@ public class BulletScript : MonoBehaviour
     public Sprite L4_sprite;
     public Sprite L5_sprite;
     public Sprite L6_sprite;
+    public AudioSource fireSound;
 
     // Start is called before the first frame update
     void Start()

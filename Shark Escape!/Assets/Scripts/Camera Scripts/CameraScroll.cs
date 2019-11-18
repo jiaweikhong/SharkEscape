@@ -6,9 +6,13 @@ public class CameraScroll : MonoBehaviour
 {
     public float scroll_speed = StatDatabase.map_scrollspeed;
     private float y_Scroll;
+    public AudioSource bgm1;
+    public AudioSource bgm2;
+
     // Start is called before the first frame update
     void Start()
     {
+        AudioSource.PlayClipAtPoint(bgm1.clip, transform.position, 0.1f);
         //Scroll();
     }
 
@@ -17,6 +21,7 @@ public class CameraScroll : MonoBehaviour
     {
         Scroll();
     }
+
     void Scroll()
     {
         y_Scroll = scroll_speed;

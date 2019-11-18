@@ -11,6 +11,8 @@ TagManager:
   - Laser_powerup
   - Torp_powerup
   - Frame
+  - DyingEnemy
+  - ScreenShake
   layers:
   - Default
   - TransparentFX

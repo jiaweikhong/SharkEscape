@@ -160,3 +160,4 @@ MonoBehaviour:
     type: 3}
   L6_sprite: {fileID: -7738437374538900620, guid: 66d9d3dbb5daa2547b27a2cf6cdccbb6,
     type: 3}
+  fireSound: {fileID: 0}

@@ -23,9 +23,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform attack_Point;
 
+    public AudioSource hurtSound;
+    public AudioSource deathSound;
+    public AudioSource torpSound;
+    public AudioSource laserSound;
+    public Animator animator;
+
     public float attack_Timer = StatDatabase.player_attack_speed;
     private float current_Attack_Timer;
     private bool canAttack;
+    private bool deathAnimating;
 
     public static float bullet_X = 0f;
     public static float bullet_Y = 1f;
@@ -52,7 +59,11 @@ public class PlayerController : MonoBehaviour
 
     void MoveSubmarine()
     {
-        if (Input.GetAxisRaw("Vertical") > 0f)
+        if (deathAnimating)
+        {
+            return;
+        }
+        else if (Input.GetAxisRaw("Vertical") > 0f)
         {
             Vector3 temp = transform.position;
             temp.y += charSpeed * Time.deltaTime;
@@ -95,10 +106,16 @@ public class PlayerController : MonoBehaviour
     }   // move submarine
 
     void Attack() {
-        
+
         attack_Timer += Time.deltaTime;
-        if (attack_Timer > current_Attack_Timer) {
+        if (attack_Timer > current_Attack_Timer)
+        {
             canAttack = true;
+        }
+   
+        if (deathAnimating == true)
+        {
+            canAttack = false;
         }
 
         // GetKey is for holding down button. GetKeyDown is for pressing once.
@@ -106,7 +123,8 @@ public class PlayerController : MonoBehaviour
             if (canAttack) {
                 canAttack = false;
                 attack_Timer = 0f;
-                Instantiate (player_Torpedo, attack_Point.position, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(torpSound.clip, transform.position, 0.8f);
+                Instantiate(player_Torpedo, attack_Point.position, Quaternion.identity);
                 // play the sound FX
             }
         }
@@ -116,6 +134,7 @@ public class PlayerController : MonoBehaviour
             {
                 canAttack = false;
                 attack_Timer = 0f;
+                AudioSource.PlayClipAtPoint(laserSound.clip, transform.position, 0.8f);
                 Instantiate(player_Laser, attack_Point.position, Quaternion.identity);
                 // play the sound FX
             }
@@ -178,37 +197,37 @@ public class PlayerController : MonoBehaviour
             LaserLvManager.laserLevel += 1;
         }
     }
-    void checkHealth()
+    void CheckHealth()
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(Death());
             // Debug.Log("you died");
-            SceneManager.LoadScene(2);
         }
     }   // check current health. if <0, destroy
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Laser_powerup")
+        if (collision.CompareTag("Laser_powerup"))
         {
             LaserLevelUp();
             Debug.Log("Obtained Laser powerup!");
         }
-        else if (collision.tag == "Torp_powerup")
+        else if (collision.CompareTag("Torp_powerup"))
         {
             TorpedoLevelUp();
             Debug.Log("Obtained Torpedo powerup!");
         }
-        else if (collision.tag == "Enemy")
+        else if (collision.CompareTag("Enemy"))
         {
             if (canBeDamaged)
             {
                 canBeDamaged = false;
                 current_Invin_Timer = 0f;
+                AudioSource.PlayClipAtPoint(hurtSound.clip, transform.position);
                 var damageTaken = collision.gameObject.GetComponent<EnemyScript>().touchdamage;
                 health -= damageTaken;
-                checkHealth();
+                CheckHealth();
                 HealthManager.health -= damageTaken;
             }
         }
@@ -229,6 +248,16 @@ public class PlayerController : MonoBehaviour
         pos.x = Mathf.Clamp01(pos.x);
         pos.y = Mathf.Clamp(pos.y, 0.038f, 1f);
         transform.position = Camera.main.ViewportToWorldPoint(pos);
+    }   // ensures sub does not leave map
+
+    IEnumerator Death()
+    {
+        deathAnimating = true;
+        animator.SetBool("isAlive", false);
+        AudioSource.PlayClipAtPoint(deathSound.clip, transform.position);
+        yield return new WaitForSeconds(2);
+        Destroy(gameObject);
+        SceneManager.LoadScene(2);
     }
 
 }   // class

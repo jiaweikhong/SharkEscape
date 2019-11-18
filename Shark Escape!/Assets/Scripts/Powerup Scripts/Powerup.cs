@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
+    public AudioSource powerupSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,16 +17,13 @@ public class Powerup : MonoBehaviour
     {
         
     }
-    void DestroyGameObject()
-    {
-        gameObject.SetActive(false);
-        Destroy(gameObject);
-    }   // deactivate
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
-            DestroyGameObject();
+            AudioSource.PlayClipAtPoint(powerupSound.clip, transform.position);
+            Destroy(gameObject, powerupSound.clip.length);
         }
     }   // destroy powerup when collide
 }
