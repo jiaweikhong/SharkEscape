@@ -10,32 +10,32 @@ public class BossScript : MonoBehaviour
     public int touchdamage = StatDatabase.boss1_touchdamage;
     public float speed = StatDatabase.boss1_speed;
     public int threshold = 1;
+    private bool canAttack = true;
     // Start is called before the first frame update
     void Start()
     {
         
     }
-    void bossMechanismFlow()
-    {
-        //Fn activates when fight commences or we can instantiate object when boss fight commences
-        //Timer runs for 1.5 seconds
-        //Once timer ups, run bossAttacks
-        //Then boss stops and reveals hitbox for head
-        //Restart flow!
-    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (StatDatabase.boss1_isAwake == true)
+        {
+            if(canAttack == true)
+            {
+                Debug.Log("Boss Attacks!");
+                StartCoroutine(bossAttacks());
+            }
+        }
     }
     void checkHealth()
     {
         adjustThreshold();
-
         if (health <= 0)
         {
             ScoreManager.score += points;
             // Debug.Log(ScoreManager.score);
+            Debug.Log("Dead!");
             Destroy(gameObject);
         }
     }   // check current health. if <0, destroy
@@ -57,16 +57,19 @@ public class BossScript : MonoBehaviour
     }   // apply collision logic with bullet
     void adjustThreshold()
     {
-        if (health < 0.9 * (baseHealth))
+        if (health < 0.9 * (baseHealth) && health > 0.7 * (baseHealth))
         {
+            Debug.Log("Threshold at 2");
             threshold = 2;
         }
-        else if (health < 0.8 * (baseHealth))
+        else if (health < 0.7 * (baseHealth) && health > 0.5 * (baseHealth))
         {
+            Debug.Log("Threshold at 3");
             threshold = 3;
         }
-        else if (health < 0.4 * (baseHealth))
+        else if (health < 0.5 * (baseHealth))
         {
+            Debug.Log("Threshold at 4");
             threshold = 4;
         }
     }
@@ -76,6 +79,7 @@ public class BossScript : MonoBehaviour
     // 2. Attack 1: Track and return to spot
     void attackOne()
     {
+        Debug.Log("Attack 1!");
         // 1. posToGo = currentPlayerPosition
         // 2. wait 0.5 seconds
         // 3. While not at posToGo
@@ -85,19 +89,22 @@ public class BossScript : MonoBehaviour
     // 3. Attack 2: Disappear. Mob of sharks appear then boss reappear
     void attackTwo()
     {
-        // 1. Boss fades
+        Debug.Log("Attack 2!");
+        // 1. Boss fades/disappears
         // 2. Generate shark mobs that moves from top to bottom of screen
         // 3. Boss appears
     }
 
     void attackThree()
     {
+        Debug.Log("Attack 3!");
         //1. Boss animation
         //2. Boss launches bullets in a circle
     }
 
     void attackFour()
     {
+        Debug.Log("Attack 4!");
         // 1. Boss disappears
         // 2. Take camera position & size( these two shld be fixed)
         // 3. RNG ranges between the x axis and either at top or bottom of screen(2 y axis values) (startPos)
@@ -112,9 +119,14 @@ public class BossScript : MonoBehaviour
     // 5. Attack 4. Dash through screen for a few seconds
     // 6. Death state
     // 7. Move to 3 of the spots state
-    void bossAttacks()
+    IEnumerator bossAttacks()
     {
-        int atkDecision = Random.Range(1, threshold);
+        //Fn activates when fight commences or we can instantiate object when boss fight commences
+        //run bossAttacks
+        canAttack = false;
+        Debug.Log("Boss Attack commences!");
+        int atkDecision = Random.Range(1, threshold+1);
+        Debug.Log("Attack Decision: " + atkDecision);
         switch (atkDecision)
         {
             case 1:
@@ -130,5 +142,10 @@ public class BossScript : MonoBehaviour
                 attackFour();
                 break;
         }
+        //Timer runs for 2 seconds
+        //Then boss stops and reveals hitbox for head ( If adding, might have to change the mechanism for the yield below
+        //Restart flow!
+        yield return new WaitForSeconds(2);
+        canAttack = true;
     }
 }

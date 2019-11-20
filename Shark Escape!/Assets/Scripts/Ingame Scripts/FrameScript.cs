@@ -22,6 +22,7 @@ public class FrameScript : MonoBehaviour
     {
         if (collision.CompareTag("Frame"))
         {
+            StatDatabase.boss1_isAwake = true;
             scroll_speed = 0f;
             mainCam.GetComponent<CameraScroll>().scroll_speed = 0f;
             Debug.Log("Reached end of map");

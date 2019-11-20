@@ -32,4 +32,5 @@ public class StatDatabase : MonoBehaviour
     public static int boss1_points = 10000;
     public static int boss1_touchdamage = 200;
     public static float boss1_speed = 1.0f;
+    public static bool boss1_isAwake = false;
 }
