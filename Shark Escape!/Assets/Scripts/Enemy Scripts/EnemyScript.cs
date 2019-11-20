@@ -16,7 +16,6 @@ public class EnemyScript : MonoBehaviour
     private bool deathAnimating;
     private CamShake shake;
 
-    public GameObject enemyPrefab;
     public AudioSource deathSound;
     public Animator animator;
 

@@ -4104,8 +4104,10 @@ MonoBehaviour:
   points: 10000
   touchdamage: 200
   speed: 1
-  isAwake: 0
   threshold: 1
+  maxMobs: 20
+  sharkMobs: {fileID: 1534699451530704356, guid: 6303d69c07e16c947b8437a1969cdb99,
+    type: 3}
 --- !u!50 &1327443617
 Rigidbody2D:
   serializedVersion: 4
@@ -4216,7 +4218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327443615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 74.2, z: 0}
+  m_LocalPosition: {x: 0, y: 76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

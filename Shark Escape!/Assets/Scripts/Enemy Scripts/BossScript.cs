@@ -11,6 +11,8 @@ public class BossScript : MonoBehaviour
     public float speed = StatDatabase.boss1_speed;
     public int threshold = 1;
     private bool canAttack = true;
+    public int maxMobs = 20;
+    public GameObject sharkMobs;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class BossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (StatDatabase.boss1_isAwake == true)
         {
             if(canAttack == true)
@@ -36,6 +39,7 @@ public class BossScript : MonoBehaviour
             ScoreManager.score += points;
             // Debug.Log(ScoreManager.score);
             Debug.Log("Dead!");
+            //Change this to a death sequence ba
             Destroy(gameObject);
         }
     }   // check current health. if <0, destroy
@@ -59,17 +63,14 @@ public class BossScript : MonoBehaviour
     {
         if (health < 0.9 * (baseHealth) && health > 0.7 * (baseHealth))
         {
-            Debug.Log("Threshold at 2");
             threshold = 2;
         }
         else if (health < 0.7 * (baseHealth) && health > 0.5 * (baseHealth))
         {
-            Debug.Log("Threshold at 3");
             threshold = 3;
         }
         else if (health < 0.5 * (baseHealth))
         {
-            Debug.Log("Threshold at 4");
             threshold = 4;
         }
     }
@@ -77,32 +78,62 @@ public class BossScript : MonoBehaviour
 
     // 1. Rest state
     // 2. Attack 1: Track and return to spot
-    void attackOne()
+    IEnumerator attackOne()
     {
         Debug.Log("Attack 1!");
-        // 1. posToGo = currentPlayerPosition
-        // 2. wait 0.5 seconds
-        // 3. While not at posToGo
-        // 4. move to posToGo at speed
-        // 5. resolved
+        // Ensure Submarine exists (i.e. Not dead and destroyed)
+        var playerObject = GameObject.Find("Submarine");
+        if (playerObject)
+        {
+            // 1. posToGo = currentPlayerPosition
+            var posToGo = playerObject.transform.position;
+            // 2. wait 1 seconds
+            StartCoroutine(timer(1));
+            var t = 0f;
+            // 3. While not at posToGo
+            while (t < 1)
+            {
+                // 4. move to posToGo at speed
+                var distance = Vector3.Distance(posToGo, transform.position);
+                var timeToMove = distance / StatDatabase.enemy1_speed;
+                t += Time.deltaTime / timeToMove;
+                transform.position = Vector3.Lerp(transform.position, posToGo, t);
+                yield return null;
+                //yield return new WaitForSeconds(3);
+                // 5. resolved
+            }
+
+        }
+
+
     }
     // 3. Attack 2: Disappear. Mob of sharks appear then boss reappear
-    void attackTwo()
+    IEnumerator attackTwo()
     {
         Debug.Log("Attack 2!");
-        // 1. Boss fades/disappears
-        // 2. Generate shark mobs that moves from top to bottom of screen
-        // 3. Boss appears
+        //StartCoroutine(activateSharkMob());
+        int noOfMobs = Random.Range(1, maxMobs);
+        for (int i = 0; i<noOfMobs; i++)
+        {
+            Instantiate(sharkMobs);
+        }
+        yield return null;
+
+
+
+
     }
 
-    void attackThree()
+
+    IEnumerator attackThree()
     {
         Debug.Log("Attack 3!");
         //1. Boss animation
         //2. Boss launches bullets in a circle
+        yield return null;
     }
 
-    void attackFour()
+    IEnumerator attackFour()
     {
         Debug.Log("Attack 4!");
         // 1. Boss disappears
@@ -113,27 +144,34 @@ public class BossScript : MonoBehaviour
         // 6. Shark moves from startPos to endPos at speed multiplied by some value 
         // 7. Repeat step 2 to 6 for 4 times
         // 8. Boss reappear again within screen
+        yield return null;
 
     }
     // 4. Attack 3. Shoot bullets in a circle
     // 5. Attack 4. Dash through screen for a few seconds
     // 6. Death state
     // 7. Move to 3 of the spots state
+    IEnumerator timer(float num)
+    {
+        yield return new WaitForSeconds(num);
+    }
     IEnumerator bossAttacks()
     {
         //Fn activates when fight commences or we can instantiate object when boss fight commences
         //run bossAttacks
         canAttack = false;
         Debug.Log("Boss Attack commences!");
-        int atkDecision = Random.Range(1, threshold+1);
+        //int atkDecision = Random.Range(1, threshold+1);
+        int atkDecision = 2;
         Debug.Log("Attack Decision: " + atkDecision);
         switch (atkDecision)
         {
             case 1:
-                attackOne();
+                StartCoroutine(attackOne());
                 break;
             case 2:
-                attackTwo();
+                Debug.Log("Run Attack 2!");
+                StartCoroutine(attackTwo());
                 break;
             case 3:
                 attackThree();
@@ -145,7 +183,7 @@ public class BossScript : MonoBehaviour
         //Timer runs for 2 seconds
         //Then boss stops and reveals hitbox for head ( If adding, might have to change the mechanism for the yield below
         //Restart flow!
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(10);
         canAttack = true;
     }
 }
