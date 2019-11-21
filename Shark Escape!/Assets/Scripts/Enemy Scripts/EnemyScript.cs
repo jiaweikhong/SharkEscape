@@ -58,15 +58,21 @@ public class EnemyScript : MonoBehaviour
     {
         if (collision.CompareTag("LaserBullet"))
         {
+            //animator.SetBool("isHit", true);
             var damagetaken = collision.gameObject.GetComponent<LaserScript>().damage;
             health -= damagetaken;
             CheckHealth();
+            StartCoroutine(GetHitAnimate());
+            //animator.SetBool("isHit", false);
         }
         else if (collision.CompareTag("TorpBullet"))
         {
+            //animator.SetBool("isHit", true);
             var damagetaken = collision.gameObject.GetComponent<TorpedoScript>().damage;
             health -= damagetaken;
             CheckHealth();
+            StartCoroutine(GetHitAnimate());
+            //animator.SetBool("isHit", false);
         }
     }   // apply collision logic with bullet
 
@@ -80,5 +86,12 @@ public class EnemyScript : MonoBehaviour
         AudioSource.PlayClipAtPoint(deathSound.clip, transform.position.normalized, 1.0f);
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
+    }
+
+    IEnumerator GetHitAnimate()
+    {
+        animator.SetBool("isHit", true);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetBool("isHit", false);
     }
 }

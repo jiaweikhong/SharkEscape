@@ -7,7 +7,7 @@ public class StatDatabase : MonoBehaviour
     // A config file to configure all initialization stats that are called by most other scripts
 
     // Player stats
-    public static int player_max_health = 100;
+    public static int player_max_health = 30;
     public static float player_speed = 5f;
     public static float player_invin_frame = 1.5f;
     public static float player_attack_speed = 0.35f;
