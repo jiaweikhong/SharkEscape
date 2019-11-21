@@ -12,7 +12,8 @@ public class BossScript : MonoBehaviour
     public int threshold = 1;
     private bool canAttack = true;
     public int maxMobs = 20;
-    public GameObject sharkMobs;
+    public GameObject whirlpool;
+    public GameObject shark;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,10 +75,7 @@ public class BossScript : MonoBehaviour
             threshold = 4;
         }
     }
-    // 7 States for boss
 
-    // 1. Rest state
-    // 2. Attack 1: Track and return to spot
     IEnumerator attackOne()
     {
         Debug.Log("Attack 1!");
@@ -115,38 +113,28 @@ public class BossScript : MonoBehaviour
         int noOfMobs = Random.Range(1, maxMobs);
         for (int i = 0; i<noOfMobs; i++)
         {
-            Instantiate(sharkMobs);
+            Instantiate(whirlpool);
         }
         yield return null;
-
-
-
-
     }
 
 
     IEnumerator attackThree()
     {
         Debug.Log("Attack 3!");
-        //1. Boss animation
-        //2. Boss launches bullets in a circle
-        yield return null;
-    }
+        int noOfMobstoSpawn = Random.Range(5, maxMobs + 1);
+        for (int i = 0; i < noOfMobstoSpawn; i++)
+        {
+            float xPos = Random.Range(-6, 10);
+            float yPos = Random.Range(60, 80);
+            Vector3 sharkPos = new Vector3(xPos, yPos, 0);
+            Instantiate(shark, sharkPos, Quaternion.identity);
+        }
 
-    IEnumerator attackFour()
-    {
-        Debug.Log("Attack 4!");
-        // 1. Boss disappears
-        // 2. Take camera position & size( these two shld be fixed)
-        // 3. RNG ranges between the x axis and either at top or bottom of screen(2 y axis values) (startPos)
-        // 4. Generate a new position within the screen (endPos)
-        // 5. Signal appearance for 1 second
-        // 6. Shark moves from startPos to endPos at speed multiplied by some value 
-        // 7. Repeat step 2 to 6 for 4 times
-        // 8. Boss reappear again within screen
         yield return null;
 
     }
+
     // 4. Attack 3. Shoot bullets in a circle
     // 5. Attack 4. Dash through screen for a few seconds
     // 6. Death state
@@ -161,8 +149,7 @@ public class BossScript : MonoBehaviour
         //run bossAttacks
         canAttack = false;
         Debug.Log("Boss Attack commences!");
-        //int atkDecision = Random.Range(1, threshold+1);
-        int atkDecision = 2;
+        int atkDecision = Random.Range(1, threshold+1);
         Debug.Log("Attack Decision: " + atkDecision);
         switch (atkDecision)
         {
@@ -170,14 +157,15 @@ public class BossScript : MonoBehaviour
                 StartCoroutine(attackOne());
                 break;
             case 2:
-                Debug.Log("Run Attack 2!");
                 StartCoroutine(attackTwo());
                 break;
             case 3:
-                attackThree();
+                StartCoroutine(attackThree());
                 break;
             case 4:
-                attackFour();
+                StartCoroutine(attackThree());
+                StartCoroutine(attackTwo());
+                StartCoroutine(attackOne());
                 break;
         }
         //Timer runs for 2 seconds
@@ -185,5 +173,6 @@ public class BossScript : MonoBehaviour
         //Restart flow!
         yield return new WaitForSeconds(10);
         canAttack = true;
+
     }
 }

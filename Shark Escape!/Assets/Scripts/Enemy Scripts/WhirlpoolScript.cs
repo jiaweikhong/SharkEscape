@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SharkMobScript : EnemyScript
+public class WhirlpoolScript : EnemyScript
 {
     public float leftLimit = -20.0f;
     public float rightLimit = 16.0f;
