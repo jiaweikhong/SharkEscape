@@ -11,14 +11,19 @@ public class BossScript : MonoBehaviour
     public float speed = StatDatabase.boss1_speed;
     public int threshold = 1;
     private bool canAttack = true;
-    public int minMobs = 2;
-    public int maxMobs = 4;
+    public int minWPs = 2;
+    public int maxWPs = 4;
     public GameObject whirlpool;
     public GameObject shark;
+    public float normalizeRatio;
+
+    [SerializeField] private BossHealthBarScript healthBar;
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthBar = GameObject.Find("HealthBar").GetComponent<BossHealthBarScript>();
+        healthBar.SetSize(.4f);
+        normalizeRatio = baseHealth / .4f;
     }
     // Update is called once per frame
     void Update()
@@ -63,6 +68,8 @@ public class BossScript : MonoBehaviour
     }   // apply collision logic with bullet
     void adjustThreshold()
     {
+        
+        healthBar.SetSize(normalizeRatio * health);
         if (health < 0.9 * (baseHealth) && health > 0.7 * (baseHealth))
         {
             threshold = 2;
@@ -94,7 +101,7 @@ public class BossScript : MonoBehaviour
             {
                 // 4. move to posToGo at speed
                 var distance = Vector3.Distance(posToGo, transform.position);
-                var timeToMove = distance / StatDatabase.enemy1_speed;
+                var timeToMove = distance / StatDatabase.boss1_speed;
                 t += Time.deltaTime / timeToMove;
                 transform.position = Vector3.Lerp(transform.position, posToGo, t);
                 yield return null;
@@ -110,9 +117,10 @@ public class BossScript : MonoBehaviour
     IEnumerator attackTwo()
     {
         Debug.Log("Attack 2!");
-        //StartCoroutine(activateSharkMob());
-        int noOfMobs = Random.Range(minMobs, maxMobs+1);
-        for (int i = 0; i<noOfMobs; i++)
+        // Whirlpool attack!
+
+        int noOfWPs = Random.Range(minWPs, maxWPs + 1); //maxWPs + 1 because Range excludes the right value
+        for (int i = 0; i< noOfWPs; i++)
         {
             Instantiate(whirlpool);
         }
@@ -123,10 +131,10 @@ public class BossScript : MonoBehaviour
     IEnumerator attackThree()
     {
         Debug.Log("Attack 3!");
-        int noOfMobstoSpawn = Random.Range(5, maxMobs + 1);
+        int noOfMobstoSpawn = Random.Range(1,  6);
         for (int i = 0; i < noOfMobstoSpawn; i++)
         {
-            float xPos = Random.Range(-6, 10);
+            float xPos = Random.Range(-20, 20);
             float yPos = Random.Range(60, 80);
             Vector3 sharkPos = new Vector3(xPos, yPos, 0);
             Instantiate(shark, sharkPos, Quaternion.identity);
@@ -141,18 +149,18 @@ public class BossScript : MonoBehaviour
         StartCoroutine(timer(1));
         var t = 0f;
         // 3. While not at posToGo
-        Vector3 initPos = new Vector3(20,76,0);
-        Vector3 finalPos = new Vector3(-20, 76, 0);
+        float new_y = Random.Range(60, 75);
+        Vector3 initPos = new Vector3(23, new_y, 0);
+        Vector3 finalPos = new Vector3(-23, new_y, 0);
         while (t < 1)
         {
             // 4. move to posToGo at speed
             var distance = Vector3.Distance(finalPos, initPos);
-            var timeToMove = distance / StatDatabase.boss1_speed;
+            var timeToMove = distance / (speed * 15.0f);
             t += Time.deltaTime / timeToMove;
             transform.position = initPos;
             transform.position = Vector3.Lerp(transform.position, finalPos, t);
             yield return null;
-            //yield return new WaitForSeconds(3);
             // 5. resolved
         }
     }
@@ -172,8 +180,7 @@ public class BossScript : MonoBehaviour
         canAttack = false;
         Debug.Log("Boss Attack commences!");
         //int atkDecision = Random.Range(1, threshold+1);
-        int atkDecision = 4;
-        Debug.Log("Attack Decision: " + atkDecision);
+        int atkDecision = 1;
         switch (atkDecision)
         {
             case 1:
@@ -192,7 +199,7 @@ public class BossScript : MonoBehaviour
         //Timer runs for 2 seconds
         //Then boss stops and reveals hitbox for head ( If adding, might have to change the mechanism for the yield below
         //Restart flow!
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(5);
         canAttack = true;
 
     }
