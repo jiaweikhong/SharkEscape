@@ -8,20 +8,23 @@ public class PlayerController : MonoBehaviour
     public float min_Y = -9.37f;
     public float max_Y = 320f;
     public float min_X = -17.35f;
-    public float max_X = 10.52f;
+    public float max_X = 17.35f;
     public int health = StatDatabase.player_max_health;
     public float current_Invin_Timer;
     public float invin_Time = StatDatabase.player_invin_frame;
     public bool canBeDamaged;
 
-    [SerializeField]
-    private GameObject player_Torpedo;
+    //[SerializeField]
+    //private GameObject player_Torpedo;
+    public GameObject player_Torpedo;
 
-    [SerializeField]
-    private GameObject player_Laser;
+    //[SerializeField]
+    //private GameObject player_Laser;
+    public GameObject player_Laser;
 
-    [SerializeField]
-    private Transform attack_Point;
+    //[SerializeField]
+    //private Transform attack_Point;
+    public Transform attack_Point;
 
     public AudioSource hurtSound;
     public AudioSource deathSound;
@@ -218,11 +221,15 @@ public class PlayerController : MonoBehaviour
             TorpedoLevelUp();
             Debug.Log("Obtained Torpedo powerup!");
         }
-        else if (collision.CompareTag("Enemy"))
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    { 
+        if (collision.CompareTag("Enemy"))
         {
             if (canBeDamaged)
             {
                 canBeDamaged = false;
+                animator.SetBool("isDamaged", true);
                 current_Invin_Timer = 0f;
                 AudioSource.PlayClipAtPoint(hurtSound.clip, transform.position);
                 var damageTaken = collision.gameObject.GetComponent<EnemyScript>().touchdamage;
@@ -238,6 +245,7 @@ public class PlayerController : MonoBehaviour
         current_Invin_Timer += Time.deltaTime;
         if (current_Invin_Timer > invin_Time)
         {
+            animator.SetBool("isDamaged", false);
             canBeDamaged = true;
         }
     }   // ensures i-frame after being hit
