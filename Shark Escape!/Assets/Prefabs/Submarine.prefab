@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99cff1d2acf428944982e6b626379c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charSpeed: 5
+  charSpeed: 7
   min_Y: -9.37
   max_Y: 320
   min_X: -17.35
@@ -504,7 +504,7 @@ MonoBehaviour:
   laserSound: {fileID: 7169605451969296889}
   animator: {fileID: 7838098299139767375}
   attack_Timer: 0.35
-  torpedo_turn_rate: 0.01
+  torpedo_turn_rate: 0.03
 --- !u!212 &557426397288243018
 SpriteRenderer:
   m_ObjectHideFlags: 0

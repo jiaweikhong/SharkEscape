@@ -194,7 +194,7 @@ public class BossScript : MonoBehaviour
         //Timer runs for 2 seconds
         //Then boss stops and reveals hitbox for head ( If adding, might have to change the mechanism for the yield below
         //Restart flow!
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         canAttack = true;
     }
     IEnumerator GetHitAnimate()

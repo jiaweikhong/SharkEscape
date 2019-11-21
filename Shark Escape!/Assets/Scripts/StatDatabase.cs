@@ -8,7 +8,7 @@ public class StatDatabase : MonoBehaviour
 
     // Player stats
     public static int player_max_health = 100;
-    public static float player_speed = 5f;
+    public static float player_speed = 7f;
     public static float player_invin_frame = 1.5f;
     public static float player_attack_speed = 0.35f;
 
@@ -34,7 +34,7 @@ public class StatDatabase : MonoBehaviour
     public static float enemy2_attack_speed = 1f;
 
     // Boss 1
-    public static float boss1_health = 10000;
+    public static float boss1_health = 20000;
     public static int boss1_points = 100000;
     public static int boss1_touchdamage = 2000;
     public static float boss1_speed = 1.0f;

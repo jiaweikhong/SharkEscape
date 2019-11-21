@@ -4113,10 +4113,8 @@ MonoBehaviour:
   maxWPs: 4
   whirlpool: {fileID: 1534699451530704356, guid: 6303d69c07e16c947b8437a1969cdb99,
     type: 3}
-  shark: {fileID: 1344309258}
+  shark: {fileID: 3752283341095962225, guid: c901ba5d348b3e549b758ec0f244aa3e, type: 3}
   animator: {fileID: 1327443622}
-  normalizeRatio: 0
-  healthBar: {fileID: 0}
 --- !u!50 &1327443617
 Rigidbody2D:
   serializedVersion: 4
@@ -4227,7 +4225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327443615}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 72.91, z: 0}
+  m_LocalPosition: {x: 0, y: 76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4343,12 +4341,6 @@ EdgeCollider2D:
   - {x: 0.7949108, y: 3.0558467}
   - {x: 0.6771845, y: 2.9689584}
   - {x: 0.33299422, y: 2.6497297}
---- !u!1 &1344309258 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3752283341095962225, guid: c901ba5d348b3e549b758ec0f244aa3e,
-    type: 3}
-  m_PrefabInstance: {fileID: 285205769}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1374703778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3752283341095962228, guid: c901ba5d348b3e549b758ec0f244aa3e,

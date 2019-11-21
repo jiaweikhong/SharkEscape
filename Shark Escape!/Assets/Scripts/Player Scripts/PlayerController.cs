@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public static float bullet_X = 0f;
     public static float bullet_Y = 1f;
-    public float torpedo_turn_rate = 0.01f;
+    public float torpedo_turn_rate = 0.03f;
 
     public static int torpedo_level = 1;
     public static int laser_level = 1;
