@@ -11,7 +11,8 @@ public class BossScript : MonoBehaviour
     public float speed = StatDatabase.boss1_speed;
     public int threshold = 1;
     private bool canAttack = true;
-    public int maxMobs = 20;
+    public int minMobs = 2;
+    public int maxMobs = 4;
     public GameObject whirlpool;
     public GameObject shark;
     // Start is called before the first frame update
@@ -110,7 +111,7 @@ public class BossScript : MonoBehaviour
     {
         Debug.Log("Attack 2!");
         //StartCoroutine(activateSharkMob());
-        int noOfMobs = Random.Range(1, maxMobs);
+        int noOfMobs = Random.Range(minMobs, maxMobs+1);
         for (int i = 0; i<noOfMobs; i++)
         {
             Instantiate(whirlpool);
@@ -135,6 +136,27 @@ public class BossScript : MonoBehaviour
 
     }
 
+    IEnumerator attackFour()
+    {
+        StartCoroutine(timer(1));
+        var t = 0f;
+        // 3. While not at posToGo
+        Vector3 initPos = new Vector3(20,76,0);
+        Vector3 finalPos = new Vector3(-20, 76, 0);
+        while (t < 1)
+        {
+            // 4. move to posToGo at speed
+            var distance = Vector3.Distance(finalPos, initPos);
+            var timeToMove = distance / StatDatabase.boss1_speed;
+            t += Time.deltaTime / timeToMove;
+            transform.position = initPos;
+            transform.position = Vector3.Lerp(transform.position, finalPos, t);
+            yield return null;
+            //yield return new WaitForSeconds(3);
+            // 5. resolved
+        }
+    }
+
     // 4. Attack 3. Shoot bullets in a circle
     // 5. Attack 4. Dash through screen for a few seconds
     // 6. Death state
@@ -149,7 +171,8 @@ public class BossScript : MonoBehaviour
         //run bossAttacks
         canAttack = false;
         Debug.Log("Boss Attack commences!");
-        int atkDecision = Random.Range(1, threshold+1);
+        //int atkDecision = Random.Range(1, threshold+1);
+        int atkDecision = 4;
         Debug.Log("Attack Decision: " + atkDecision);
         switch (atkDecision)
         {
@@ -163,9 +186,7 @@ public class BossScript : MonoBehaviour
                 StartCoroutine(attackThree());
                 break;
             case 4:
-                StartCoroutine(attackThree());
-                StartCoroutine(attackTwo());
-                StartCoroutine(attackOne());
+                StartCoroutine(attackFour());
                 break;
         }
         //Timer runs for 2 seconds
