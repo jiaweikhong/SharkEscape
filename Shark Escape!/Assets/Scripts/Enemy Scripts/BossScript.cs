@@ -16,15 +16,10 @@ public class BossScript : MonoBehaviour
     public GameObject whirlpool;
     public GameObject shark;
     public Animator animator;
-    public float normalizeRatio;
 
-    [SerializeField] private BossHealthBarScript healthBar;
     // Start is called before the first frame update
     void Start()
     {
-        healthBar = GameObject.Find("HealthBar").GetComponent<BossHealthBarScript>();
-        healthBar.SetSize(.4f);
-        normalizeRatio = baseHealth / .4f;
     }
     // Update is called once per frame
     void Update()
@@ -72,7 +67,6 @@ public class BossScript : MonoBehaviour
     void adjustThreshold()
     {
 
-        healthBar.SetSize(normalizeRatio * health);
         if (health < 0.9 * (baseHealth) && health > 0.7 * (baseHealth))
         {
             threshold = 2;
@@ -180,8 +174,8 @@ public class BossScript : MonoBehaviour
         //run bossAttacks
         canAttack = false;
         Debug.Log("Boss Attack commences!");
-        //int atkDecision = Random.Range(1, threshold+1);
-        int atkDecision = 1;
+        int atkDecision = Random.Range(1, threshold+1);
+        //int atkDecision = 1;
         switch (atkDecision)
         {
             case 1:

@@ -9,7 +9,7 @@ public class BossHealthBarScript : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Transform bar = transform.Find("Bar");
+        //Transform bar = transform.Find("Bar");
     }
 
     // Update is called once per frame
@@ -20,6 +20,5 @@ public class BossHealthBarScript : MonoBehaviour
     public void SetSize(float sizeNormalized)
     {
         Debug.Log("Before local scale step ");
-         = new Vector3(sizeNormalized, 1f);
     }
 }
