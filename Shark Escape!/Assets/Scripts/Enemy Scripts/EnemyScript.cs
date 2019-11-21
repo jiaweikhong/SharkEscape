@@ -19,9 +19,6 @@ public class EnemyScript : MonoBehaviour
     public AudioSource deathSound;
     public Animator animator;
 
-    //Free to add sounds and animations later here
-
-
     void Awake()
     {
         
@@ -57,21 +54,17 @@ public class EnemyScript : MonoBehaviour
     {
         if (collision.CompareTag("LaserBullet"))
         {
-            //animator.SetBool("isHit", true);
             var damagetaken = collision.gameObject.GetComponent<LaserScript>().damage;
             health -= damagetaken;
             CheckHealth();
             StartCoroutine(GetHitAnimate());
-            //animator.SetBool("isHit", false);
         }
         else if (collision.CompareTag("TorpBullet"))
         {
-            //animator.SetBool("isHit", true);
             var damagetaken = collision.gameObject.GetComponent<TorpedoScript>().damage;
             health -= damagetaken;
             CheckHealth();
             StartCoroutine(GetHitAnimate());
-            //animator.SetBool("isHit", false);
         }
     }   // apply collision logic with bullet
 

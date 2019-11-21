@@ -72,7 +72,7 @@ public class BulletScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" || collision.tag == "Frame")
+        if (collision.CompareTag("Enemy") || collision.CompareTag("Frame") || collision.CompareTag("Boss1"))
         {
             DestroyGameObject();
         }

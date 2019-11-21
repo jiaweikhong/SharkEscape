@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     { 
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("Boss1"))
         {
             if (canBeDamaged)
             {
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isDamaged", true);
                 current_Invin_Timer = 0f;
                 AudioSource.PlayClipAtPoint(hurtSound.clip, transform.position);
-                var damageTaken = collision.gameObject.GetComponent<EnemyScript>().touchdamage;
+                var damageTaken = collision.gameObject.GetComponent<TouchDamageScript>().touchdamage;
                 health -= damageTaken;
                 CheckHealth();
                 HealthManager.health -= damageTaken;

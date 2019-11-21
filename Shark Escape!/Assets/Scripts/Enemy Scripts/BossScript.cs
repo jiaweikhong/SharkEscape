@@ -15,6 +15,7 @@ public class BossScript : MonoBehaviour
     public int maxMobs = 4;
     public GameObject whirlpool;
     public GameObject shark;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,12 +54,14 @@ public class BossScript : MonoBehaviour
             var damagetaken = collision.gameObject.GetComponent<LaserScript>().damage;
             health -= damagetaken;
             checkHealth();
+            StartCoroutine(GetHitAnimate());
         }
         else if (collision.tag == "TorpBullet")
         {
             var damagetaken = collision.gameObject.GetComponent<TorpedoScript>().damage;
             health -= damagetaken;
             checkHealth();
+            StartCoroutine(GetHitAnimate());
         }
     }   // apply collision logic with bullet
     void adjustThreshold()
@@ -103,8 +106,6 @@ public class BossScript : MonoBehaviour
             }
 
         }
-
-
     }
     // 3. Attack 2: Disappear. Mob of sharks appear then boss reappear
     IEnumerator attackTwo()
@@ -194,6 +195,11 @@ public class BossScript : MonoBehaviour
         //Restart flow!
         yield return new WaitForSeconds(10);
         canAttack = true;
-
+    }
+    IEnumerator GetHitAnimate()
+    {
+        animator.SetBool("isHit", true);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetBool("isHit", false);
     }
 }

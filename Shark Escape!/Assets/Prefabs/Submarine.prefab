@@ -489,7 +489,7 @@ MonoBehaviour:
   max_Y: 320
   min_X: -17.35
   max_X: 17.35
-  health: 30
+  health: 100
   current_Invin_Timer: 0
   invin_Time: 1.5
   canBeDamaged: 0
