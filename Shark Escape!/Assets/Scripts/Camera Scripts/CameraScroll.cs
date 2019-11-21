@@ -6,6 +6,7 @@ public class CameraScroll : MonoBehaviour
 {
     public float scroll_speed = StatDatabase.map_scrollspeed;
     private float y_Scroll;
+    private bool bossBGM = false;
     public AudioSource bgm1;
     public AudioSource bgm2;
 
@@ -20,6 +21,7 @@ public class CameraScroll : MonoBehaviour
     void Update()
     {
         Scroll();
+        PlayBossBGM();
     }
 
     void Scroll()
@@ -27,5 +29,14 @@ public class CameraScroll : MonoBehaviour
         y_Scroll = scroll_speed;
         //Might have to edit this in the later part to smoothen scrolling of camera
         transform.position = new Vector3(transform.position.x, transform.position.y + y_Scroll, transform.position.z);
+    }
+
+    void PlayBossBGM()
+    {
+        if (scroll_speed == 0f && bossBGM == false)
+        {
+            AudioSource.PlayClipAtPoint(bgm2.clip, transform.position, 0.1f);
+            bossBGM = true;
+        }
     }
 }
