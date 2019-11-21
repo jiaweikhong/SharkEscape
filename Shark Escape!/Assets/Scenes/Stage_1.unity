@@ -2083,7 +2083,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625043707}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.031, y: 77.92, z: 0}
+  m_LocalPosition: {x: 0.031, y: 11.13, z: 0}
   m_LocalScale: {x: 3.37512, y: 0.1176, z: 1.176}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3976,7 +3976,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269814048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 68, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1960946055}
@@ -4082,7 +4082,7 @@ GameObject:
   - component: {fileID: 1327443616}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4099,12 +4099,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654396222bb2ece49aece4e54235ce8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000000
+  health: 1000
   baseHealth: 1000
   points: 10000
   touchdamage: 200
   speed: 1
   threshold: 1
+  minMobs: 2
   maxMobs: 20
   whirlpool: {fileID: 1534699451530704356, guid: 6303d69c07e16c947b8437a1969cdb99,
     type: 3}

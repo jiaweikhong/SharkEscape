@@ -13,6 +13,7 @@ TagManager:
   - Frame
   - DyingEnemy
   - ScreenShake
+  - Boss1
   layers:
   - Default
   - TransparentFX

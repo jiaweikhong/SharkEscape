@@ -28,9 +28,9 @@ public class StatDatabase : MonoBehaviour
     public static float enemy1_speed = 1.0f;
 
     // Boss 1
-    public static float boss1_health = 1000;
-    public static int boss1_points = 10000;
-    public static int boss1_touchdamage = 200;
+    public static float boss1_health = 10000;
+    public static int boss1_points = 100000;
+    public static int boss1_touchdamage = 2000;
     public static float boss1_speed = 1.0f;
     public static bool boss1_isAwake = false;
 }

@@ -238,6 +238,7 @@ public class PlayerController : MonoBehaviour
                 HealthManager.health -= damageTaken;
             }
         }
+
     }   // if sub touches enemy, receive 10 damage
 
     private void HandleInvincibility()
